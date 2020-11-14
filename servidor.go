@@ -27,7 +27,6 @@ func serverExit() {
 	s, error := net.Listen("tcp", ":9998")
 	if error != nil {
 		fmt.Println(error)
-		fmt.Println("listen")
 		return
 	}
 	//go conteo()
@@ -35,7 +34,6 @@ func serverExit() {
 		c, error := s.Accept()
 		if error != nil {
 			fmt.Println(error)
-			fmt.Println("accept")
 			continue
 		}
 		go handleExitingClient(c)
@@ -55,7 +53,6 @@ func server() {
 	s, error := net.Listen("tcp", ":9999")
 	if error != nil {
 		fmt.Println(error)
-		fmt.Println("listen")
 		return
 	}
 	go conteo()
@@ -63,7 +60,6 @@ func server() {
 		c, error := s.Accept()
 		if error != nil {
 			fmt.Println(error)
-			fmt.Println("accept")
 			continue
 		}
 		go handleClient(c)
@@ -74,14 +70,12 @@ func handleClient(c net.Conn) {
 	error := gob.NewEncoder(c).Encode(i)
 	if error != nil {
 		fmt.Println(error)
-		fmt.Println("encode I")
 		return
 	}
 	e := lista.Front()
 	error = gob.NewEncoder(c).Encode(e.Value)
 	if error != nil {
 		fmt.Println(error)
-		fmt.Println("encode E")
 		return
 	}
 	lista.Remove(e)
